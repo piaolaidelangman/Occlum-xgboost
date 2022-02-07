@@ -1,5 +1,6 @@
 # Occlum-xgboost
 
+rm -rf /home/sdp/diankun/process_data_10G && \
 $SPARK_HOME/bin/spark-submit   \
   --master local[8] \
   --conf spark.task.cpus=8  \
@@ -23,9 +24,9 @@ $SPARK_HOME/bin/spark-submit   \
   --conf spark.speculation=false \
   --conf spark.executor.heartbeatInterval=10000000 \
   --conf spark.shuffle.io.maxRetries=8 \
-  --num-executors 16 \
+  --num-executors 8 \
   --executor-cores 4 \
   --executor-memory 8G \
-  --driver-memory 64G \
+  --driver-memory 16G \
   target/xgboostsparksgx-1.0-SNAPSHOT-jar-with-dependencies.jar \
-  /home/sdp/diankun/process_data_10G 16 
+  /home/sdp/diankun/process_data_10G 8
