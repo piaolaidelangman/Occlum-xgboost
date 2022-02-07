@@ -11,5 +11,5 @@ sudo docker run -it \
     -v /home/sdp/diankun/process_data_10G:/opt/occlum_spark/data \
 	-e LOCAL_IP=192.168.0.111 \
 	-e SGX_MEM_SIZE=100GB \
-	xgboost-spark-sgx:1.0 \
+	xgboost-spark-sgx:2.0 \
 	bash /opt/run_spark_on_occlum_glibc.sh $1 && tail -f /dev/null
