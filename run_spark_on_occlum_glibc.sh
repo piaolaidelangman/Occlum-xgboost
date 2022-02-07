@@ -101,7 +101,7 @@ run_spark_xgboost_train() {
                 -Xms96g org.apache.spark.deploy.SparkSubmit \
                 --master local[16] \
                 --conf spark.task.cpus=16 \
-                --class xgboostsparksgx.xgbClassifierTrainingExample \
+                --class occlumxgboost.xgbClassifierTrainingExample \
                 --conf spark.scheduler.maxRegisteredResourcesWaitingTime=50000000 \
                 --conf spark.worker.timeout=60000000 \
                 --conf spark.network.timeout=10000000 \
