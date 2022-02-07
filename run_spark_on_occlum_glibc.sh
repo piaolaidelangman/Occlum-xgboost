@@ -120,6 +120,8 @@ run_spark_xgboost_train() {
                 --conf spark.task.reaper.threadDump=false \
                 --conf spark.sql.files.maxPartitionBytes=512m \
                 --conf spark.sql.inMemoryColumnarStorage.enableVectorizedReader=false \
+                --conf spark.dynamicAllocation.enabled=true \
+                --conf spark.dynamicAllocation.shuffleTracking.enabled=true \
                 --num-executors 8 \
                 --executor-cores 4 \
                 --executor-memory 8G \
