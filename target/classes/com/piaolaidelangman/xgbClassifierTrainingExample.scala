@@ -18,8 +18,9 @@ object xgbClassifierTrainingExample {
     val input_path = args(0) // path to iris.data
     val modelsave_path = args(1) // save model to this path
     val num_threads = args(2).toInt
+    val num_repartions = args(3).toInt
 
-    var df = spark.read.option("header", "false").option("inferSchema", "true").option("delimiter", " ").csv(input_path)
+    var df = spark.read.option("header", "false").option("inferSchema", "true").option("delimiter", " ").csv(input_path).coalesce(num_repartions)
 
     val stringIndexer = new StringIndexer()
       .setInputCol("_c0")
