@@ -28,8 +28,8 @@ object xgbClassifierTrainingExample {
     val labelTransformed = stringIndexer.transform(df).drop("_c0")
 
     var inputCols = new Array[String](39)
-    for(i <- 1 to 39){
-      inputCols(i) = "_c" + i.toString
+    for(i <- 0 to 38){
+      inputCols(i) = "_c" + (i+1).toString
     }
 
     val vectorAssembler = new VectorAssembler().
@@ -50,7 +50,7 @@ object xgbClassifierTrainingExample {
     xgbClassifier.setNumWorkers(1)
     xgbClassifier.setMaxDepth(2)
     xgbClassifier.setNthread(num_threads)
-    xgbClassifier.setNumRound(100)
+    xgbClassifier.setNumRound(10)
     xgbClassifier.setTreeMethod("auto")
     xgbClassifier.setObjective("multi:softprob")
     xgbClassifier.setTimeoutRequestWorkers(180000L)
