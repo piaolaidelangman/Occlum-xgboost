@@ -98,7 +98,7 @@ run_spark_xgboost_train() {
                 -Divy.home="/tmp/.ivy" \
                 -Dos.name="Linux" \
                 -cp "$SPARK_HOME/conf/:$SPARK_HOME/jars/*:/bin/jars/*" \
-                -Xmxg48 -Xms48g org.apache.spark.deploy.SparkSubmit \
+                -Xmx48g -Xms48g org.apache.spark.deploy.SparkSubmit \
                 --master local[16] \
                 --conf spark.task.cpus=16 \
                 --class occlumxgboost.xgbClassifierTrainingExample \
