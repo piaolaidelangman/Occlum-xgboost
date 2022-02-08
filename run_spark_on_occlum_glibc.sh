@@ -118,17 +118,6 @@ run_spark_xgboost_train() {
                 --conf spark.kryoserializer.buffer.max=1024m \
                 --conf spark.memory.offHeap.enabled=true \
                 --conf spark.memory.offHeap.size=8g \
-                --conf spark.storage.memoryMapThreshold=8m \
-                --conf spark.task.reaper.threadDump=false \
-                --conf spark.sql.files.maxPartitionBytes=512m \
-                --conf spark.sql.inMemoryColumnarStorage.enableVectorizedReader=false \
-                --conf spark.dynamicAllocation.shuffleTracking.enabled=true \
-                --conf spark.shuffle.service.enabled=true \
-                --conf spark.dynamicAllocation.enabled=true \
-                --conf spark.dynamicAllocation.executorIdleTimeout=180s \
-                --conf spark.dynamicAllocation.minExecutors=1 \
-                --conf spark.dynamicAllocation.maxExecutors=8 \
-                --conf spark.dynamicAllocation.schedulerBacklogTimeout=2s \
                 --num-executors 8 \
                 --executor-cores 2 \
                 --executor-memory 4G \
@@ -154,3 +143,16 @@ case "$arg" in
         cd ../
         ;;
 esac
+
+# Dynamic
+                # --conf spark.storage.memoryMapThreshold=8m \
+                # --conf spark.task.reaper.threadDump=false \
+                # --conf spark.sql.files.maxPartitionBytes=512m \
+                # --conf spark.sql.inMemoryColumnarStorage.enableVectorizedReader=false \
+                # --conf spark.dynamicAllocation.shuffleTracking.enabled=true \
+                # --conf spark.shuffle.service.enabled=true \
+                # --conf spark.dynamicAllocation.enabled=true \
+                # --conf spark.dynamicAllocation.executorIdleTimeout=180s \
+                # --conf spark.dynamicAllocation.minExecutors=1 \
+                # --conf spark.dynamicAllocation.maxExecutors=8 \
+                # --conf spark.dynamicAllocation.schedulerBacklogTimeout=2s \
