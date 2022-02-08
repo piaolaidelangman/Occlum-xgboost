@@ -16,9 +16,11 @@ init_instance() {
     occlum init
     new_json="$(jq '.resource_limits.user_space_size = "SGX_MEM_SIZE" |
         .resource_limits.max_num_of_threads = 4096 |
+        .resource_limits.user_space_size = "8192MB" |
         .process.default_heap_size = "4096MB" |
         .resource_limits.kernel_space_heap_size="4096MB" |
         .process.default_mmap_size = "65536MB" |
+        .process.default_stack_size = "4096MB" |
         .entry_points = [ "/usr/lib/jvm/java-11-openjdk-amd64/bin" ] |
         .env.untrusted = [ "DMLC_TRACKER_URI", "SPARK_DRIVER_URL" ] |
         .env.default = [ "LD_LIBRARY_PATH=/usr/lib/jvm/java-11-openjdk-amd64/lib/server:/usr/lib/jvm/java-11-openjdk-amd64/lib:/usr/lib/jvm/java-11-openjdk-amd64/../lib:/lib","SPARK_CONF_DIR=/bin/conf","SPARK_ENV_LOADED=1","PYTHONHASHSEED=0","SPARK_HOME=/bin","SPARK_SCALA_VERSION=2.12","SPARK_JARS_DIR=/bin/jars","LAUNCH_CLASSPATH=/bin/jars/*",""]' Occlum.json)" && \
@@ -127,7 +129,7 @@ run_spark_xgboost_train() {
                 --executor-memory 4G \
                 --driver-memory 24G \
                 /bin/jars/xgboostsparksgx-1.0-SNAPSHOT-jar-with-dependencies.jar \
-                /host/data /host/data/model 8 4
+                /host/data /host/data/model 8 200
 }
 
 id=$([ -f "$pid" ] && echo $(wc -l < "$pid") || echo "0")
