@@ -112,12 +112,6 @@ run_spark_xgboost_train() {
                 --conf spark.executor.heartbeatInterval=10000000 \
                 --conf spark.sql.shuffle.partitions=200 \
                 --conf spark.shuffle.io.maxRetries=8 \
-                --conf spark.driver.maxResultSize=16g \
-                --conf spark.driver.memoryOverhead=16g \
-                --conf spark.executor.memoryOverhead=2g \
-                --conf spark.kryoserializer.buffer.max=1024m \
-                --conf spark.memory.offHeap.enabled=true \
-                --conf spark.memory.offHeap.size=8g \
                 --num-executors 8 \
                 --executor-cores 2 \
                 --executor-memory 4G \
@@ -143,6 +137,14 @@ case "$arg" in
         cd ../
         ;;
 esac
+# Extract mem
+                # --conf spark.driver.maxResultSize=16g \
+                # --conf spark.driver.memoryOverhead=16g \
+                # --conf spark.executor.memoryOverhead=2g \
+                # --conf spark.kryoserializer.buffer.max=1024m \
+                # --conf spark.memory.offHeap.enabled=true \
+                # --conf spark.memory.offHeap.size=8g \
+
 
 # Dynamic
                 # --conf spark.storage.memoryMapThreshold=8m \
