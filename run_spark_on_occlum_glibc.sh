@@ -16,7 +16,7 @@ init_instance() {
     occlum init
     new_json="$(jq '.resource_limits.user_space_size = "SGX_MEM_SIZE" |
         .resource_limits.max_num_of_threads = 4096 |
-        .resource_limits.user_space_size = "512MB" |
+        .resource_limits.user_space_size = "256MB" |
         .process.default_heap_size = "4096MB" |
         .resource_limits.kernel_space_heap_size="4096MB" |
         .process.default_mmap_size = "65536MB" |
