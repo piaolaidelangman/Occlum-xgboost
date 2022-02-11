@@ -13,7 +13,7 @@ FROM 10.239.45.10/arda/intelanalytics/bigdl-ppml-trusted-big-data-ml-scala-occlu
 #     git fetch origin pull/5/head:test && git checkout test && \
 #     /opt/apache-maven-3.6.3/bin/mvn clean package
 
-ADD xgboostsparksgx-1.0-SNAPSHOT-jar-with-dependencies.jar /opt
+ADD target/xgboostsparksgx-1.0-SNAPSHOT-jar-with-dependencies.jar /opt
 
 # Copy scripts & other files
 ADD ./run_spark_on_occlum_glibc.sh /opt/run_spark_on_occlum_glibc.sh
