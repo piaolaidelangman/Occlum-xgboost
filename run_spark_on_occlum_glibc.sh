@@ -95,7 +95,7 @@ run_spark_xgboost_train() {
     build_spark
     echo -e "occlum run xgboost spark "
     occlum run /usr/lib/jvm/java-11-openjdk-amd64/bin/java \
-                -XX:-UseCompressedOops -XX:MaxMetaspaceSize=256m \
+                -XX:-UseCompressedOops -XX:MaxMetaspaceSize=1024m \
                 -XX:ActiveProcessorCount=8 \
                 -Divy.home="/tmp/.ivy" \
                 -Dos.name="Linux" \
