@@ -18,9 +18,9 @@ init_instance() {
     occlum init
     new_json="$(jq '.resource_limits.user_space_size = "SGX_MEM_SIZE" |
         .resource_limits.max_num_of_threads = 4096 |
-        .process.default_heap_size = "12288MB" |
-        .resource_limits.kernel_space_heap_size="2048MB" |
-        .process.default_mmap_size = "30GB" |
+        .process.default_heap_size = "20GB" |
+        .resource_limits.kernel_space_heap_size="2GB" |
+        .process.default_mmap_size = "24GB" |
         .entry_points = [ "/usr/lib/jvm/java-11-openjdk-amd64/bin" ] |
         .env.untrusted = [ "DMLC_TRACKER_URI", "SPARK_DRIVER_URL" ] |
         .env.default = [ "LD_LIBRARY_PATH=/usr/lib/jvm/java-11-openjdk-amd64/lib/server:/usr/lib/jvm/java-11-openjdk-amd64/lib:/usr/lib/jvm/java-11-openjdk-amd64/../lib:/lib","SPARK_CONF_DIR=/bin/conf","SPARK_ENV_LOADED=1","PYTHONHASHSEED=0","SPARK_HOME=/bin","SPARK_SCALA_VERSION=2.12","SPARK_JARS_DIR=/bin/jars","LAUNCH_CLASSPATH=/bin/jars/*",""]' Occlum.json)" && \
@@ -100,16 +100,16 @@ run_spark_xgboost_train() {
                 -Divy.home="/tmp/.ivy" \
                 -Dos.name="Linux" \
                 -cp "$SPARK_HOME/conf/:$SPARK_HOME/jars/*:/bin/jars/*" \
-                -Xmx26g -Xms26g org.apache.spark.deploy.SparkSubmit \
-                --master local[8] \
-                --conf spark.task.cpus=2 \
+                -Xmx24g -Xms24g org.apache.spark.deploy.SparkSubmit \
+                --master local[16] \
+                --conf spark.task.cpus=8 \
                 --class occlumxgboost.xgbClassifierTrainingExample \
-                --num-executors 2 \
-                --executor-cores 4 \
-                --executor-memory 8G \
-                --driver-memory 10G \
+                --num-executors 8 \
+                --executor-cores 2 \
+                --executor-memory 2G \
+                --driver-memory 8G \
                 /bin/jars/xgboostsparksgx-1.0-SNAPSHOT-jar-with-dependencies.jar \
-                /host/data /host/data/model 2 10 2
+                /host/data /host/data/model 4 10 2
 }
 
 id=$([ -f "$pid" ] && echo $(wc -l < "$pid") || echo "0")
