@@ -102,14 +102,14 @@ run_spark_xgboost_train() {
                 -cp "$SPARK_HOME/conf/:$SPARK_HOME/jars/*:/bin/jars/*" \
                 -Xmx20g -Xms20g org.apache.spark.deploy.SparkSubmit \
                 --master local[8] \
-                --conf spark.task.cpus=8 \
+                --conf spark.task.cpus=2 \
                 --class occlumxgboost.xgbClassifierTrainingExample \
-                --num-executors 8 \
-                --executor-cores 2 \
-                --executor-memory 1G \
-                --driver-memory 8G \
+                --num-executors 2 \
+                --executor-cores 4 \
+                --executor-memory 4G \
+                --driver-memory 10G \
                 /bin/jars/xgboostsparksgx-1.0-SNAPSHOT-jar-with-dependencies.jar \
-                /host/data /host/data/model 8
+                /host/data /host/data/model 2 10 2
 }
 
 id=$([ -f "$pid" ] && echo $(wc -l < "$pid") || echo "0")
