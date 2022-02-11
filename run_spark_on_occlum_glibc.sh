@@ -18,7 +18,7 @@ init_instance() {
     occlum init
     new_json="$(jq '.resource_limits.user_space_size = "SGX_MEM_SIZE" |
         .resource_limits.max_num_of_threads = 4096 |
-        .process.default_heap_size = "10240MB" |
+        .process.default_heap_size = "12288MB" |
         .resource_limits.kernel_space_heap_size="2048MB" |
         .process.default_mmap_size = "20480MB" |
         .entry_points = [ "/usr/lib/jvm/java-11-openjdk-amd64/bin" ] |
