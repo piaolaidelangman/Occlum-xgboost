@@ -13,3 +13,4 @@ sudo docker run -it \
 	-e SGX_MEM_SIZE=30GB \
 	xgboost-spark-sgx:2.0 \
 	bash /opt/run_spark_on_occlum_glibc.sh $1 && tail -f /dev/null
+
