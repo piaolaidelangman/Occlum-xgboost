@@ -53,7 +53,7 @@ object xgbClassifierTrainingExample {
       // convert RDD to RDD[Row]
       val rowRDD = processedRdd.map(_.split(" ")).map(row => Row.fromSeq(
         for {
-          i <- 0 to feature_nums
+          i <- 0 to 39
         } yield {
           row(i).toLong
         }
