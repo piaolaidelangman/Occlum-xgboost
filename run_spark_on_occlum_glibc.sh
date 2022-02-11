@@ -20,7 +20,7 @@ init_instance() {
         .resource_limits.max_num_of_threads = 4096 |
         .process.default_heap_size = "12288MB" |
         .resource_limits.kernel_space_heap_size="2048MB" |
-        .process.default_mmap_size = "20480MB" |
+        .process.default_mmap_size = "30GB" |
         .entry_points = [ "/usr/lib/jvm/java-11-openjdk-amd64/bin" ] |
         .env.untrusted = [ "DMLC_TRACKER_URI", "SPARK_DRIVER_URL" ] |
         .env.default = [ "LD_LIBRARY_PATH=/usr/lib/jvm/java-11-openjdk-amd64/lib/server:/usr/lib/jvm/java-11-openjdk-amd64/lib:/usr/lib/jvm/java-11-openjdk-amd64/../lib:/lib","SPARK_CONF_DIR=/bin/conf","SPARK_ENV_LOADED=1","PYTHONHASHSEED=0","SPARK_HOME=/bin","SPARK_SCALA_VERSION=2.12","SPARK_JARS_DIR=/bin/jars","LAUNCH_CLASSPATH=/bin/jars/*",""]' Occlum.json)" && \
@@ -100,13 +100,13 @@ run_spark_xgboost_train() {
                 -Divy.home="/tmp/.ivy" \
                 -Dos.name="Linux" \
                 -cp "$SPARK_HOME/conf/:$SPARK_HOME/jars/*:/bin/jars/*" \
-                -Xmx20g -Xms20g org.apache.spark.deploy.SparkSubmit \
+                -Xmx26g -Xms26g org.apache.spark.deploy.SparkSubmit \
                 --master local[8] \
                 --conf spark.task.cpus=2 \
                 --class occlumxgboost.xgbClassifierTrainingExample \
                 --num-executors 2 \
                 --executor-cores 4 \
-                --executor-memory 4G \
+                --executor-memory 8G \
                 --driver-memory 10G \
                 /bin/jars/xgboostsparksgx-1.0-SNAPSHOT-jar-with-dependencies.jar \
                 /host/data /host/data/model 2 10 2
