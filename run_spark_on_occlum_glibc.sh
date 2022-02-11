@@ -18,9 +18,9 @@ init_instance() {
     occlum init
     new_json="$(jq '.resource_limits.user_space_size = "SGX_MEM_SIZE" |
         .resource_limits.max_num_of_threads = 4096 |
-        .process.default_heap_size = "4096MB" |
+        .process.default_heap_size = "36846MB" |
         .resource_limits.kernel_space_heap_size="4096MB" |
-        .process.default_mmap_size = "71680MB" |
+        .process.default_mmap_size = "36846MB" |
         .entry_points = [ "/usr/lib/jvm/java-11-openjdk-amd64/bin" ] |
         .env.untrusted = [ "DMLC_TRACKER_URI", "SPARK_DRIVER_URL" ] |
         .env.default = [ "LD_LIBRARY_PATH=/usr/lib/jvm/java-11-openjdk-amd64/lib/server:/usr/lib/jvm/java-11-openjdk-amd64/lib:/usr/lib/jvm/java-11-openjdk-amd64/../lib:/lib","SPARK_CONF_DIR=/bin/conf","SPARK_ENV_LOADED=1","PYTHONHASHSEED=0","SPARK_HOME=/bin","SPARK_SCALA_VERSION=2.12","SPARK_JARS_DIR=/bin/jars","LAUNCH_CLASSPATH=/bin/jars/*",""]' Occlum.json)" && \
@@ -96,13 +96,13 @@ run_spark_xgboost_train() {
     echo -e "occlum run xgboost spark "
     occlum run /usr/lib/jvm/java-11-openjdk-amd64/bin/java \
                 -XX:-UseCompressedOops -XX:MaxMetaspaceSize=1024m \
-                -XX:ActiveProcessorCount=4 \
+                -XX:ActiveProcessorCount=8 \
                 -Divy.home="/tmp/.ivy" \
                 -Dos.name="Linux" \
                 -cp "$SPARK_HOME/conf/:$SPARK_HOME/jars/*:/bin/jars/*" \
-                -Xmx64g -Xms64g org.apache.spark.deploy.SparkSubmit \
-                --master local[16] \
-                --conf spark.task.cpus=16 \
+                -Xmx32g -Xms32g org.apache.spark.deploy.SparkSubmit \
+                --master local[8] \
+                --conf spark.task.cpus=8 \
                 --class occlumxgboost.xgbClassifierTrainingExample \
                 --conf spark.scheduler.maxRegisteredResourcesWaitingTime=50000000 \
                 --conf spark.worker.timeout=60000000 \
@@ -114,10 +114,10 @@ run_spark_xgboost_train() {
                 --conf spark.shuffle.io.maxRetries=8 \
                 --num-executors 8 \
                 --executor-cores 2 \
-                --executor-memory 4G \
-                --driver-memory 24G \
+                --executor-memory 2G \
+                --driver-memory 10G \
                 /bin/jars/xgboostsparksgx-1.0-SNAPSHOT-jar-with-dependencies.jar \
-                /host/data /host/data/model 8 200
+                /host/data /host/data/model 8
 }
 
 id=$([ -f "$pid" ] && echo $(wc -l < "$pid") || echo "0")
