@@ -89,7 +89,7 @@ run_spark_pi() {
                 --jars $SPARK_HOME/examples/jars/spark-examples_2.12-3.1.2.jar,$SPARK_HOME/examples/jars/scopt_2.12-3.7.1.jar \
                 --class org.apache.spark.examples.SparkPi spark-internal
 }
-
+                # -XX:+UseParallelGC \
 run_spark_xgboost_train() {
     init_instance spark
     build_spark
@@ -97,7 +97,6 @@ run_spark_xgboost_train() {
     occlum run /usr/lib/jvm/java-11-openjdk-amd64/bin/java \
                 -XX:-UseCompressedOops -XX:MaxMetaspaceSize=1024m \
                 -XX:ActiveProcessorCount=8 \
-                -XX:+UseParallelGC \
                 -Divy.home="/tmp/.ivy" \
                 -Dos.name="Linux" \
                 -cp "$SPARK_HOME/conf/:$SPARK_HOME/jars/*:/bin/jars/*" \
