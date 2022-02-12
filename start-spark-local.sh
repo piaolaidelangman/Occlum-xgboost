@@ -10,7 +10,7 @@ sudo docker run -it \
 	-v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket \
     -v /home/sdp/diankun/occlumData:/opt/occlum_spark/data \
 	-e LOCAL_IP=192.168.0.111 \
-	-e SGX_MEM_SIZE=68GB \
+	-e SGX_MEM_SIZE=70GB \
 	xgboost-spark-sgx:2.0 \
 	bash /opt/run_spark_on_occlum_glibc.sh $1 && tail -f /dev/null
 
