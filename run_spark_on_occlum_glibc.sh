@@ -19,7 +19,7 @@ init_instance() {
     new_json="$(jq '.resource_limits.user_space_size = "SGX_MEM_SIZE" |
         .resource_limits.max_num_of_threads = 4096 |
         .resource_limits.kernel_space_heap_size="2048MB" |
-        .process.default_heap_size = "32768MB" |
+        .process.default_heap_size = "32GB" |
         .process.default_mmap_size = "36864MB" |
         .entry_points = [ "/usr/lib/jvm/java-11-openjdk-amd64/bin" ] |
         .env.untrusted = [ "DMLC_TRACKER_URI", "SPARK_DRIVER_URL" ] |
