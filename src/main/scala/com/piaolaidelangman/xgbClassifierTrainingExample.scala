@@ -39,27 +39,27 @@ object xgbClassifierTrainingExample {
 
       // read csv files to dataframe
       var df = spark.read.option("header", "false").
-        option("inferSchema", "true").option("delimiter", "\t").csv(input_path)
+        option("inferSchema", "true").option("delimiter", " ").csv(input_path)
       // preprocess data
-      val processedRdd = df.rdd.map(task.rowToLibsvm)
+      // val processedRdd = df.rdd.map(task.rowToLibsvm)
 
-      // declare schema
-      var structFieldArray = new Array[StructField](feature_nums + 1)
-      for(i <- 0 to feature_nums) {
-        structFieldArray(i) = StructField("_c" + i.toString, LongType, true)
-      }
-      var schema = new StructType(structFieldArray)
+      // // declare schema
+      // var structFieldArray = new Array[StructField](feature_nums + 1)
+      // for(i <- 0 to feature_nums) {
+      //   structFieldArray(i) = StructField("_c" + i.toString, LongType, true)
+      // }
+      // var schema = new StructType(structFieldArray)
 
-      // convert RDD to RDD[Row]
-      val rowRDD = processedRdd.map(_.split(" ")).map(row => Row.fromSeq(
-        for {
-          i <- 0 to 39
-        } yield {
-          row(i).toLong
-        }
-      ))
-      // RDD[Row] to Dataframe
-      df = spark.createDataFrame(rowRDD, schema)
+      // // convert RDD to RDD[Row]
+      // val rowRDD = processedRdd.map(_.split(" ")).map(row => Row.fromSeq(
+      //   for {
+      //     i <- 0 to 39
+      //   } yield {
+      //     row(i).toLong
+      //   }
+      // ))
+      // // RDD[Row] to Dataframe
+      // df = spark.createDataFrame(rowRDD, schema)
 
       val stringIndexer = new StringIndexer()
         .setInputCol("_c0")
