@@ -104,10 +104,10 @@ run_spark_xgboost_train() {
                 --master local[16] \
                 --conf spark.task.cpus=8 \
                 --class occlumxgboost.xgbClassifierTrainingExample \
-                --conf spark.driver.memoryOverhead=14g \
-                --num-executors 2 \
+                --conf spark.driver.memoryOverhead=7g \
+                --num-executors 1 \
                 --executor-cores 2 \
-                --executor-memory 2G \
+                --executor-memory 12G \
                 --driver-memory 10G \
                 /bin/jars/xgboostsparksgx-1.0-SNAPSHOT-jar-with-dependencies.jar \
                 /host/data /host/data/model 8 10 2
