@@ -1,7 +1,7 @@
 package occlumxgboost
 import ml.dmlc.xgboost4j.scala.spark.TrackerConf
 import org.apache.spark.ml.feature.{StringIndexer, VectorAssembler}
-import org.apache.spark.sql.types.{StructField, StructType, LongType}
+import org.apache.spark.sql.types.{StructField, StructType, LongType, IntegerType}
 import org.apache.spark.sql.{SparkSession, Row}
 
 class Task extends Serializable{
