@@ -1,7 +1,7 @@
 package occlumxgboost
 import ml.dmlc.xgboost4j.scala.spark.TrackerConf
 import org.apache.spark.ml.feature.{StringIndexer, VectorAssembler}
-import org.apache.spark.sql.types.{StructField, StructType, LongType}
+import org.apache.spark.sql.types.{StructField, StructType, LongType, IntegerType}
 import org.apache.spark.sql.{SparkSession, Row}
 
 class Task extends Serializable{
@@ -46,17 +46,61 @@ object xgbClassifierTrainingExample {
       // declare schema
       var structFieldArray = new Array[StructField](feature_nums + 1)
       for(i <- 0 to feature_nums) {
-        structFieldArray(i) = StructField("_c" + i.toString, LongType, true)
+        if(i<14)
+          structFieldArray(i) = StructField("_c" + i.toString, IntegerType, true)
+        else
+          structFieldArray(i) = StructField("_c" + i.toString, LongType, true)
       }
       var schema = new StructType(structFieldArray)
 
       // convert RDD to RDD[Row]
-      val rowRDD = processedRdd.map(_.split(" ")).map(row => Row.fromSeq(
-        for {
-          i <- 0 to 39
-        } yield {
-          row(i).toLong
-        }
+      val rowRDD = processedRdd.map(_.split(" ")).map(row => Row(
+        // for {
+        //   i <- 0 to 39
+        // } yield {
+        //   row(i).toLong
+        // }
+        row(0).toInt,
+        row(1).toInt,
+        row(2).toInt,
+        row(3).toInt,
+        row(4).toInt,
+        row(5).toInt,
+        row(6).toInt,
+        row(7).toInt,
+        row(8).toInt,
+        row(9).toInt,
+        row(10).toInt,
+        row(11).toInt,
+        row(12).toInt,
+        row(13).toInt,
+        row(14).toLong,
+        row(15).toLong,
+        row(16).toLong,
+        row(17).toLong,
+        row(18).toLong,
+        row(19).toLong,
+        row(20).toLong,
+        row(21).toLong,
+        row(22).toLong,
+        row(23).toLong,
+        row(24).toLong,
+        row(25).toLong,
+        row(26).toLong,
+        row(27).toLong,
+        row(28).toLong,
+        row(29).toLong,
+        row(30).toLong,
+        row(31).toLong,
+        row(32).toLong,
+        row(33).toLong,
+        row(34).toLong,
+        row(35).toLong,
+        row(36).toLong,
+        row(37).toLong,
+        row(38).toLong,
+        row(39).toLong
+
       ))
       // RDD[Row] to Dataframe
       df = spark.createDataFrame(rowRDD, schema)
